@@ -125,10 +125,15 @@ include "conn.php";
                     <td>Pilih Kegiatan <font color="red">*)</font>
                     </td>
                     <td>
-                      <select class="form-control select2" name="id_kegiatan" id="id_kegiatan" style="width: 100%;" required>
+                      <select class="form-control kegiatan-dropdown"
+                        name="id_kegiatan"
+                        id="id_kegiatan_create"
+                        data-modal="exampleModalAdd"
+                        data-kode="kode_kegiatan_create"
+                        data-nama="nama_kegiatan_create"
+                        style="width: 100%;" required>
                         <option value="">-- Pilih Kegiatan --</option>
                         <?php
-                        include "koneksi.php"; // ganti dengan koneksi kamu
                         $query = mysqli_query($koneksi, "SELECT idkegiatan, kode_kegiatan, nama_kegiatan FROM tm_kegiatan ORDER BY nama_kegiatan ASC");
                         while ($row = mysqli_fetch_assoc($query)) {
                           echo "<option value='" . $row['idkegiatan'] . "'>" . $row['kode_kegiatan'] . " - " . $row['nama_kegiatan'] . "</option>";
@@ -143,7 +148,7 @@ include "conn.php";
                   <tr>
                     <td>Kode <font color="red">*)</font>
                     <td>
-                      <input type="text" size='35' class="form-control" name='kode_kegiatan' id="kode_kegiatan" readonly required>
+                      <input type="text" size='35' class="form-control" name='kode_kegiatan' id="kode_kegiatan_create" readonly required>
                     </td>
                   </tr>
                   <tr>
@@ -152,7 +157,7 @@ include "conn.php";
                   <tr>
                     <td>Nama <font color="red">*)</font>
                     <td>
-                      <textarea class="form-control" name="nama_kegiatan" id="nama_kegiatan" cols="30" readonly required></textarea>
+                      <textarea class="form-control" name="nama_kegiatan" id="nama_kegiatan_create" cols="30" readonly required></textarea>
                     </td>
                   </tr>
                   <tr>
@@ -192,7 +197,7 @@ include "conn.php";
                 <table id="tabelPegawai" class="table table-striped table-bordered" style="width:100%">
                   <thead>
                     <tr>
-                      <th>No</th>
+                      <th width="5%">No</th>
                       <th>Kode</th>
                       <th>RO</th>
                       <!-- <th>PJ</th> -->
@@ -239,6 +244,7 @@ include "conn.php";
                               <form method="post" action="mastersubkegiatan" style="margin: 0;">
                                 <input type="hidden" name="idkegiatan" value="<?php echo $yapx['idkegiatan']; ?>">
                                 <input type="hidden" name="kode_kegiatan" value="<?php echo $yapx['kode_kegiatan']; ?>">
+                                <input type="hidden" name="nama_kegiatan" value="<?php echo $yapx['nama_kegiatan']; ?>">
                                 <button type="submit" class="btn btn-link">Komponen</button>
                               </form>
                             </li>
@@ -260,18 +266,23 @@ include "conn.php";
                               <div class="modal-body">
                                 <table width="606" border="0">
                                   <form role="form" method="post" action="qedit_kegiatan" onsubmit="return validasi_input(this)" enctype='multipart/form-data'>
-                                    <!-- <input type="hidden" name="idkegiatan" value="<?php echo "$yapx[idkegiatan]"; ?>"> -->
+                                    <input type="hidden" name="idkegiatan" value="<?php echo "$yapx[idkegiatan]"; ?>">
                                     <tr>
                                       <td>Pilih Kegiatan <font color="red">*)</font>
                                       </td>
                                       <td>
-                                        <select class="form-control select2" name="id_kegiatan" id="id_kegiatan_edit" value="<?php echo "$yapx[idkegiatan]"; ?>" style="width: 100%;" required>
+                                        <select class="form-control kegiatan-dropdown"
+                                          name="id_kegiatan"
+                                          id="id_kegiatan_edit_<?php echo $yapx['idkegiatan']; ?>"
+                                          data-modal="editModal_<?php echo $yapx['idkegiatan']; ?>"
+                                          data-kode="kode_kegiatan_<?php echo $yapx['idkegiatan']; ?>"
+                                          data-nama="nama_kegiatan_<?php echo $yapx['idkegiatan']; ?>"
+                                          style="width: 100%;" required>
                                           <option value="">-- Pilih Kegiatan --</option>
                                           <?php
-                                          include "koneksi.php"; // ganti dengan koneksi kamu
                                           $query = mysqli_query($koneksi, "SELECT idkegiatan, kode_kegiatan, nama_kegiatan FROM tm_kegiatan ORDER BY nama_kegiatan ASC");
                                           while ($row = mysqli_fetch_assoc($query)) {
-                                            echo "<option value='" . $row['idkegiatan'] . "'>" . $row['kode_kegiatan'] . " - " . $row['nama_kegiatan'] . "</option>";
+                                            echo "<option value='" . $row['idkegiatan'] . "' $selected>" . $row['kode_kegiatan'] . " - " . $row['nama_kegiatan'] . "</option>";
                                           }
                                           ?>
                                         </select>
@@ -280,7 +291,8 @@ include "conn.php";
                                     <tr>
                                       <td>Kode <font color="red">*)</font>
                                       </td>
-                                      <td><input type="text" size='35' name='kode_kegiatan' value="<?php echo $yapx['kode_kegiatan']; ?>" class="form-control" id="kode_kegiatan" readonly required></td>
+                                      <td><input type="text" size='35' name='kode_kegiatan' id="kode_kegiatan_<?php echo $yapx['idkegiatan']; ?>"
+                                          value="<?php echo $yapx['kode_kegiatan']; ?>" class="form-control" readonly required></td>
                                     </tr>
                                     <tr>
                                       <td></td>
@@ -288,7 +300,8 @@ include "conn.php";
                                     <tr>
                                       <td>Nama <font color="red">*)</font>
                                       </td>
-                                      <td><textarea class="form-control" name="nama_kegiatan" id="nama_kegiatan" cols="30" readonly required><?php echo $yapx['nama_kegiatan']; ?></textarea></td>
+                                      <td><textarea class="form-control" name="nama_kegiatan" id="nama_kegiatan_<?php echo $yapx['idkegiatan']; ?>"
+                                          cols="30" readonly required><?php echo $yapx['nama_kegiatan']; ?></textarea></td>
                                     </tr>
                                     <tr>
                                       <td></td>
@@ -372,40 +385,51 @@ include "conn.php";
         }
       });
 
-      $('#id_kegiatan').select2({
-        placeholder: "-- Pilih Kegiatan --",
-        allowClear: true,
-        dropdownParent: $('#exampleModalAdd') // penting agar jalan di dalam modal bootstrap
-      });
+      // Untuk semua select kegiatan (create & edit)
+      $('.kegiatan-dropdown').each(function() {
+        const dropdown = $(this);
+        const modalId = dropdown.data('modal'); // id modal
 
-      // Saat pilih id_kegiatan
-      $('#id_kegiatan').on('change', function() {
-        var id = $(this).val();
-        if (id) {
-          $.ajax({
-            url: 'get_data_kegiatan.php',
-            type: 'GET',
-            dataType: 'json',
-            data: {
-              id: id
-            },
-            success: function(data) {
-              if (data) {
-                $('#kode_kegiatan').val(data.kode_kegiatan);
-                $('#nama_kegiatan').val(data.nama_kegiatan);
-              } else {
-                $('#kode_kegiatan').val('');
-                $('#nama_kegiatan').val('');
+        // Aktifkan Select2
+        dropdown.select2({
+          placeholder: "-- Pilih Kegiatan --",
+          allowClear: true,
+          dropdownParent: $('#' + modalId)
+        });
+
+        // Event onchange (create & edit)
+        dropdown.on('change', function() {
+          const id = $(this).val();
+
+          const kodeField = $(this).data('kode'); // target input kode
+          const namaField = $(this).data('nama'); // target textarea nama
+
+          if (id) {
+            $.ajax({
+              url: 'get_data_kegiatan.php',
+              type: 'GET',
+              dataType: 'json',
+              data: {
+                id: id
+              },
+              success: function(data) {
+                if (data) {
+                  $('#' + kodeField).val(data.kode_kegiatan);
+                  $('#' + namaField).val(data.nama_kegiatan);
+                } else {
+                  $('#' + kodeField).val('');
+                  $('#' + namaField).val('');
+                }
+              },
+              error: function(xhr, status, error) {
+                console.error("AJAX Error: " + status + " - " + error);
               }
-            },
-            error: function(xhr, status, error) {
-              console.error("AJAX Error: " + status + " - " + error);
-            }
-          });
-        } else {
-          $('#kode_kegiatan').val('');
-          $('#nama_kegiatan').val('');
-        }
+            });
+          } else {
+            $('#' + kodeField).val('');
+            $('#' + namaField).val('');
+          }
+        });
       });
     });
   </script>

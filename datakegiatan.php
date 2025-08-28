@@ -171,7 +171,7 @@ include "conn.php";
                                 <table id="tabelPegawai" class="table table-striped table-bordered" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th width="5%">No</th>
                                             <th>Kode Kegiatan</th>
                                             <th>Nama Kegiatan</th>
                                             <th>Deskripsi</th>

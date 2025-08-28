@@ -11,7 +11,7 @@ if ($_SESSION['tipe_login'] != "1") {
 
 $tglfile = date('dmY');
 
-$qryFrm2 = "delete from tm_kegiatan where idkegiatan='$_POST[idkegiatan]'";
+$qryFrm2 = "delete from tb_kegiatan where idkegiatan='$_POST[idkegiatan]'";
 $resQryFrm2 = mysqli_query($koneksi, $qryFrm2);
 
 ?>
