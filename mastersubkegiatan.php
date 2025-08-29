@@ -17,7 +17,8 @@ include "conn.php";
   <!-- bootstrap 3.0.2 -->
   <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
   <!-- font Awesome -->
-  <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" /> -->
   <!-- Ionicons -->
   <link href="css/ionicons.min.css" rel="stylesheet" type="text/css" />
   <!-- Morris chart -->
@@ -99,7 +100,6 @@ include "conn.php";
       <section class="content-header">
         <h1>
           RO <b><?php echo $_REQUEST['nama_kegiatan']; ?></b>
-          <h4></h4>
         </h1>
 
       </section><br>
@@ -185,7 +185,17 @@ include "conn.php";
         </div>
       </div>
       <div style='margin-left:20px'>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalAdd">Tambah Komponen</button>
+        <!-- Tombol Kembali -->
+        <form method="post" action="masterkegiatan" style="display:inline;">
+          <input type="hidden" name="idkegiatan" value="<?php echo $_REQUEST['idkegiatan']; ?>">
+          <button type="submit" class="btn btn-danger">
+            <i class="fa fa-arrow-left"></i> Kembali
+          </button>
+        </form>
+
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalAdd">
+          <i class="fa fa-plus"></i> Tambah Komponen
+        </button>
 
         <!-- Main content -->
         <section class="content">
@@ -198,7 +208,7 @@ include "conn.php";
                       <th width="5%">No</th>
                       <th>Kode</th>
                       <th>Komponen/Sub Komponen</th>
-                      <th>Aksi</th>
+                      <th width="10%">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -227,7 +237,8 @@ include "conn.php";
                           <ul class="dropdown-menu" role="menu">
                             <li>
                               <!-- Tombol Trigger Modal Edit -->
-                              <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editModal_<?php echo $yapx['idsubkegiatan']; ?>">Edit Data</button>
+                              <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editModal_<?php echo $yapx['idsubkegiatan']; ?>">
+                                <i class="fa fa-pencil"></i> Edit Data</button>
                             </li>
                             <li>
                               <!-- Tombol Hapus -->
@@ -236,7 +247,7 @@ include "conn.php";
                                 <input type="hidden" name="idkegiatan" value="<?php echo $_REQUEST['idkegiatan']; ?>">
                                 <input type="hidden" name="kode_kegiatan" value="<?php echo $_REQUEST['kode_kegiatan']; ?>">
                                 <input type="hidden" name="nama_kegiatan" value="<?php echo $_REQUEST['nama_kegiatan']; ?>">
-                                <button type="submit" class="btn btn-link">Hapus Data</button>
+                                <button type="submit" class="btn btn-link"><i class="fa fa-trash"></i> Hapus Data</button>
                               </form>
                             </li>
                             <li>
@@ -248,7 +259,7 @@ include "conn.php";
                                 <input type="hidden" name="idkegiatan" value="<?php echo $_REQUEST['idkegiatan']; ?>">
                                 <input type="hidden" name="kode_kegiatan" value="<?php echo $_REQUEST['kode_kegiatan']; ?>">
                                 <input type="hidden" name="nama_kegiatan" value="<?php echo $_REQUEST['nama_kegiatan']; ?>">
-                                <button type="submit" class="btn btn-link">Jenis Belanja</button>
+                                <button type="submit" class="btn btn-link"><i class="fa fa-folder"></i> Jenis Belanja</button>
                               </form>
                             </li>
                           </ul>

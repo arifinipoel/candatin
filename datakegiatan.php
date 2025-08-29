@@ -20,7 +20,8 @@ include "conn.php";
     <!-- bootstrap 3.0.2 -->
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- font Awesome -->
-    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" /> -->
     <!-- Ionicons -->
     <link href="css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <!-- Morris chart -->
@@ -147,26 +148,23 @@ include "conn.php";
                                     </tr>
                             </table>
                         </div>
-
                         <div class="modal-footer" style="text-align:right">
-
                             <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Batalkan</button>
-                            <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> &nbsp; Simpan</a>
-                                </form>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Simpan</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
             <div style='margin-left:20px'>
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalAdd">Tambah Data</button>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalAdd">
+                    <i class="fa fa-plus"></i> Tambah Data
+                </button>
 
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
                         <div class="col-xs-12">
-
-
-
                             <div class="box-body table-responsive">
                                 <table id="tabelPegawai" class="table table-striped table-bordered" style="width:100%">
                                     <thead>
@@ -205,13 +203,15 @@ include "conn.php";
                                                     <ul class="dropdown-menu" role="menu">
                                                         <li>
                                                             <!-- Tombol Trigger Modal Edit -->
-                                                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editModal_<?php echo $yapx['idkegiatan']; ?>">Edit Data</button>
+                                                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editModal_<?php echo $yapx['idkegiatan']; ?>">
+                                                                <i class="fa fa-pencil"></i> Edit Data
+                                                            </button>
                                                         </li>
                                                         <li>
                                                             <!-- Tombol Hapus -->
                                                             <form method="post" action="qhapus_datakegiatan" onsubmit="return confirm('Apakah anda akan menghapus data ini ?')" style="margin: 0;">
                                                                 <input type="hidden" name="idkegiatan" value="<?php echo $yapx['idkegiatan']; ?>">
-                                                                <button type="submit" class="btn btn-link">Hapus Data</button>
+                                                                <button type="submit" class="btn btn-link"><i class="fa fa-trash"></i> Hapus Data</button>
                                                             </form>
                                                         </li>
                                                     </ul>
@@ -258,7 +258,6 @@ include "conn.php";
                                                                             <td></td>
                                                                         </tr>
                                                                 </table>
-
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Batalkan</button>
                                                                     <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Simpan</button>

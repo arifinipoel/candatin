@@ -20,7 +20,8 @@ include "conn.php";
   <!-- bootstrap 3.0.2 -->
   <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
   <!-- font Awesome -->
-  <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" /> -->
   <!-- Ionicons -->
   <link href="css/ionicons.min.css" rel="stylesheet" type="text/css" />
   <!-- Morris chart -->
@@ -100,7 +101,6 @@ include "conn.php";
       <section class="content-header">
         <h1>
           Data Dasar Realisasi-1 Tahun <?php echo "$_SESSION[tahun]"; ?>
-          <h4></h4>
         </h1>
 
       </section><br>
@@ -115,8 +115,6 @@ include "conn.php";
 
               </button>
             </div>
-
-
             <div class="modal-body">
               <table width="606" border="0">
                 <form role="form" method="post" action="qinsert_kegiatan" onsubmit="return validasi_input(this)" enctype='multipart/form-data'>
@@ -163,14 +161,6 @@ include "conn.php";
                   <tr>
                     <td></td>
                   </tr>
-                  <!-- <tr>
-                    <td>PJ <font color="red">*)</font>
-                    </td>
-                    <td><input type="text" size='35' name='pj' class="form-control" id="inputFirstname" required></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                  </tr> -->
               </table>
             </div>
 
@@ -184,15 +174,14 @@ include "conn.php";
         </div>
       </div>
       <div style='margin-left:20px'>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalAdd">Tambah Data</button>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalAdd">
+          <i class="fa fa-plus"></i> Tambah Data
+        </button>
 
         <!-- Main content -->
         <section class="content">
           <div class="row">
             <div class="col-xs-12">
-
-
-
               <div class="box-body table-responsive">
                 <table id="tabelPegawai" class="table table-striped table-bordered" style="width:100%">
                   <thead>
@@ -200,9 +189,7 @@ include "conn.php";
                       <th width="5%">No</th>
                       <th>Kode</th>
                       <th>RO</th>
-                      <!-- <th>PJ</th> -->
-                      <th>Aksi</th>
-
+                      <th width="10%">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -230,13 +217,15 @@ include "conn.php";
                           <ul class="dropdown-menu" role="menu">
                             <li>
                               <!-- Tombol Trigger Modal Edit -->
-                              <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editModal_<?php echo $yapx['idkegiatan']; ?>">Edit Data</button>
+                              <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editModal_<?php echo $yapx['idkegiatan']; ?>">
+                                <i class="fa fa-pencil"></i> Edit Data
+                              </button>
                             </li>
                             <li>
                               <!-- Tombol Hapus -->
                               <form method="post" action="qhapus_kegiatan" onsubmit="return confirm('Apakah anda akan menghapus data ini ?')" style="margin: 0;">
                                 <input type="hidden" name="idkegiatan" value="<?php echo $yapx['idkegiatan']; ?>">
-                                <button type="submit" class="btn btn-link">Hapus Data</button>
+                                <button type="submit" class="btn btn-link"><i class="fa fa-trash"></i> Hapus Data</button>
                               </form>
                             </li>
                             <li>
@@ -245,7 +234,7 @@ include "conn.php";
                                 <input type="hidden" name="idkegiatan" value="<?php echo $yapx['idkegiatan']; ?>">
                                 <input type="hidden" name="kode_kegiatan" value="<?php echo $yapx['kode_kegiatan']; ?>">
                                 <input type="hidden" name="nama_kegiatan" value="<?php echo $yapx['nama_kegiatan']; ?>">
-                                <button type="submit" class="btn btn-link">Komponen</button>
+                                <button type="submit" class="btn btn-link"><i class="fa fa-cogs"></i> Komponen</button>
                               </form>
                             </li>
                           </ul>
@@ -306,14 +295,6 @@ include "conn.php";
                                     <tr>
                                       <td></td>
                                     </tr>
-                                    <!-- <tr>
-                                      <td>PJ <font color="red">*)</font>
-                                      </td>
-                                      <td><input type="text" size='35' name='pj' value="<?php echo $yapx['pj']; ?>" class="form-control" id="inputFirstname" required></td>
-                                    </tr>
-                                    <tr>
-                                      <td></td>
-                                    </tr> -->
                                 </table>
 
                                 <div class="modal-footer">

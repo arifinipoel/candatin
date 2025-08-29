@@ -17,7 +17,8 @@ include "conn.php";
   <!-- bootstrap 3.0.2 -->
   <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
   <!-- font Awesome -->
-  <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" /> -->
   <!-- Ionicons -->
   <link href="css/ionicons.min.css" rel="stylesheet" type="text/css" />
   <!-- Morris chart -->
@@ -98,11 +99,10 @@ include "conn.php";
     <aside class="right-side">
       <!-- Content Header (Page header) -->
       <section class="content-header">
-        <h3>
+        <h1>
           RO <b><?php echo $_REQUEST['nama_kegiatan']; ?></b> >>
           Komponen <b><?php echo $_REQUEST['nama_subkegiatan']; ?></b>
-          <h4></h4>
-        </h3>
+        </h1>
 
       </section><br>
 
@@ -122,6 +122,7 @@ include "conn.php";
                   <input type="hidden" name="idsubkegiatan" value="<?php echo $_REQUEST['idsubkegiatan']; ?>">
                   <input type="hidden" name="kode_subkegiatan" value="<?php echo $_REQUEST['kode_subkegiatan']; ?>">
                   <input type="hidden" name="nama_subkegiatan" value="<?php echo $_REQUEST['nama_subkegiatan']; ?>">
+                  <input type="hidden" name="idkegiatan" value="<?php echo $_REQUEST['idkegiatan']; ?>">
                   <input type="hidden" name="kode_kegiatan" value="<?php echo $_REQUEST['kode_kegiatan']; ?>">
                   <input type="hidden" name="nama_kegiatan" value="<?php echo $_REQUEST['nama_kegiatan']; ?>">
                   <tr>
@@ -177,7 +178,7 @@ include "conn.php";
                     <td></td>
                   </tr>
                   <tr>
-                    <td>Kode Belanja<font color="red">*)</font>
+                    <td>Kode Belanja <font color="red">*)</font>
                     </td>
                     <td>
                       <input type="text" size='35' name='kode_komponen' class="form-control" id="kode_kegiatan_create" readonly required>
@@ -197,7 +198,7 @@ include "conn.php";
                     <td></td>
                   </tr>
                   <tr>
-                    <td>PAGU<font color="red">*)</font>
+                    <td>PAGU <font color="red">*)</font>
                     </td>
                     <td><input type="number" min="0" size='35' name='pagu' class="form-control" id="pagu" required></td>
                   </tr>
@@ -205,7 +206,7 @@ include "conn.php";
                     <td></td>
                   </tr>
                   <tr>
-                    <td>Tagging<font color="red">*)</font>
+                    <td>Tagging <font color="red">*)</font>
                     </td>
                     <td>
                       <select name="tagging" id="tagging" class="form-control" required>
@@ -215,18 +216,52 @@ include "conn.php";
                       </select>
                     </td>
                   </tr>
+                  <tr>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>PJ <!-- <font color="red">*)</font> -->
+                    </td>
+                    <td>
+                      <select name="pj" id="pj" class="form-control">
+                        <option value="">Pilih</option>
+                        <option value="TP_HOR">TP HOR</option>
+                        <option value="BUN_NAK">BUN NAK</option>
+                        <option value="SARPRAS">SARPRAS</option>
+                        <option value="EKON">EKON</option>
+                        <option value="P2D">P2D</option>
+                        <option value="AWR">AWR</option>
+                        <option value="SJK">SJK</option>
+                        <option value="ASI">ASI</option>
+                        <option value="Kamsiber">Kamsiber</option>
+                        <option value="PDP">PDP</option>
+                      </select>
+                    </td>
+                  </tr>
               </table>
             </div>
             <div class="modal-footer" style="text-align:right">
               <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Batalkan</button>
-              <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> &nbsp; Simpan</a>
+              <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Simpan</a>
                 </form>
             </div>
           </div>
         </div>
       </div>
       <div style='margin-left:20px'>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalAdd">Tambah Jenis Belanja</button>
+        <!-- Tombol Kembali -->
+        <form method="post" action="mastersubkegiatan" style="display:inline;">
+          <input type="hidden" name="idkegiatan" value="<?php echo $_REQUEST['idkegiatan']; ?>">
+          <input type="hidden" name="kode_kegiatan" value="<?php echo $_REQUEST['kode_kegiatan']; ?>">
+          <input type="hidden" name="nama_kegiatan" value="<?php echo $_REQUEST['nama_kegiatan']; ?>">
+          <button type="submit" class="btn btn-danger">
+            <i class="fa fa-arrow-left"></i> Kembali
+          </button>
+        </form>
+
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalAdd">
+          <i class="fa fa-plus"></i> Tambah Jenis Belanja
+        </button>
 
         <!-- Main content -->
         <section class="content">
@@ -236,13 +271,13 @@ include "conn.php";
                 <table id="tabelPegawai" class="table table-striped table-bordered" style="width:100%">
                   <thead>
                     <tr>
-                      <th>No</th>
+                      <th width="5%">No</th>
                       <th>Kode</th>
                       <th>Jenis Belanja</th>
                       <th>PAGU</th>
                       <th>Tagging</th>
-                      <th>Aksi</th>
-
+                      <th>PJ</th>
+                      <th width="10%">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -260,8 +295,9 @@ include "conn.php";
                       echo "
                                         <td>$yapx[kode_komponen]</td>
                                         <td>$yapx[nama_komponen]</td>    
-										<td align='right'>$pagu_format</td>
-										<td>$yapx[tagging]</td>
+                                        <td align='right'>$pagu_format</td>
+                                        <td>$yapx[tagging]</td>
+                                        <td>$yapx[pj]</td>
                                         ";
                     ?>
                       <td align="left">
@@ -272,7 +308,9 @@ include "conn.php";
                           <ul class="dropdown-menu" role="menu">
                             <li>
                               <!-- Tombol Trigger Modal Edit -->
-                              <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editModal_<?php echo $yapx['idkomponen']; ?>">Edit Data</button>
+                              <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editModal_<?php echo $yapx['idkomponen']; ?>">
+                                <i class="fa fa-pencil"></i> Edit Data
+                              </button>
                             </li>
                             <li>
                               <!-- Tombol Hapus -->
@@ -281,9 +319,10 @@ include "conn.php";
                                 <input type="hidden" name="idsubkegiatan" value="<?php echo $_REQUEST['idsubkegiatan']; ?>">
                                 <input type="hidden" name="kode_subkegiatan" value="<?php echo $_REQUEST['kode_subkegiatan']; ?>">
                                 <input type="hidden" name="nama_subkegiatan" value="<?php echo $_REQUEST['nama_subkegiatan']; ?>">
+                                <input type="hidden" name="idkegiatan" value="<?php echo $_REQUEST['idkegiatan']; ?>">
                                 <input type="hidden" name="kode_kegiatan" value="<?php echo $_REQUEST['kode_kegiatan']; ?>">
                                 <input type="hidden" name="nama_kegiatan" value="<?php echo $_REQUEST['nama_kegiatan']; ?>">
-                                <button type="submit" class="btn btn-link">Hapus Data</button>
+                                <button type="submit" class="btn btn-link"><i class="fa fa-trash"></i> Hapus Data</button>
                               </form>
                             </li>
 
@@ -309,6 +348,7 @@ include "conn.php";
                                     <input type="hidden" name="idsubkegiatan" value="<?php echo "$_REQUEST[idsubkegiatan]"; ?>">
                                     <input type="hidden" name="kode_subkegiatan" value="<?php echo "$_REQUEST[kode_subkegiatan]"; ?>">
                                     <input type="hidden" name="nama_subkegiatan" value="<?php echo "$_REQUEST[nama_subkegiatan]"; ?>">
+                                    <input type="hidden" name="idkegiatan" value="<?php echo "$_REQUEST[idkegiatan]"; ?>">
                                     <input type="hidden" name="kode_kegiatan" value="<?php echo "$_REQUEST[kode_kegiatan]"; ?>">
                                     <input type="hidden" name="nama_kegiatan" value="<?php echo "$_REQUEST[nama_kegiatan]"; ?>">
                                     <tr>
@@ -392,12 +432,34 @@ include "conn.php";
                                       <td></td>
                                     </tr>
                                     <tr>
-                                      <td>Tagging<font color="red">*)</font>
+                                      <td>Tagging <font color="red">*)</font>
                                       </td>
                                       <td>
-                                        <select name="tagging" id="tagging" class="form-control" required>
+                                        <select name="tagging" id="tagging" class="form-control" style="width:100%;" required>
                                           <option value="perjadin" <?php echo ($yapx['tagging'] == 'perjadin' ? 'selected' : ''); ?>>perjadin</option>
                                           <option value="non_perjadin" <?php echo ($yapx['tagging'] == 'non_perjadin' ? 'selected' : ''); ?>>non_perjadin</option>
+                                        </select>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td></td>
+                                    </tr>
+                                    <tr>
+                                      <td>PJ <!-- <font color="red">*)</font> -->
+                                      </td>
+                                      <td>
+                                        <select name="pj" id="pj" class="form-control" style="width:100%;">
+                                          <option value="" <?php echo (empty($yapx['pj']) ? 'selected' : ''); ?>>-- Pilih PJ --</option>
+                                          <option value="TP_HOR" <?php echo ($yapx['pj'] == 'TP_HOR' ? 'selected' : ''); ?>>TP HOR</option>
+                                          <option value="BUN_NAK" <?php echo ($yapx['pj'] == 'BUN_NAK' ? 'selected' : ''); ?>>BUN NAK</option>
+                                          <option value="SARPRAS" <?php echo ($yapx['pj'] == 'SARPRAS' ? 'selected' : ''); ?>>SARPRAS</option>
+                                          <option value="EKON" <?php echo ($yapx['pj'] == 'EKON' ? 'selected' : ''); ?>>EKON</option>
+                                          <option value="P2D" <?php echo ($yapx['pj'] == 'P2D' ? 'selected' : ''); ?>>P2D</option>
+                                          <option value="AWR" <?php echo ($yapx['pj'] == 'AWR' ? 'selected' : ''); ?>>AWR</option>
+                                          <option value="SJK" <?php echo ($yapx['pj'] == 'SJK' ? 'selected' : ''); ?>>SJK</option>
+                                          <option value="ASI" <?php echo ($yapx['pj'] == 'ASI' ? 'selected' : ''); ?>>ASI</option>
+                                          <option value="Kamsiber" <?php echo ($yapx['pj'] == 'Kamsiber' ? 'selected' : ''); ?>>Kamsiber</option>
+                                          <option value="PDP" <?php echo ($yapx['pj'] == 'PDP' ? 'selected' : ''); ?>>PDP</option>
                                         </select>
                                       </td>
                                     </tr>

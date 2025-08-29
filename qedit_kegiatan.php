@@ -18,7 +18,6 @@ $qryFrm2 = "update tb_kegiatan set
 		  updated_at = NOW()
 		  where idkegiatan='$_POST[idkegiatan]'";
 
-
 $resQryFrm2 = mysqli_query($koneksi, $qryFrm2);
 
 ?>

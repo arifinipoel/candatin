@@ -18,6 +18,7 @@ $idkomponen = $_REQUEST['idkomponen'];
 $idsubkegiatan = $_REQUEST['idsubkegiatan'];
 $kode_subkegiatan = $_REQUEST['kode_subkegiatan'];
 $nama_subkegiatan = $_REQUEST['nama_subkegiatan'];
+$idkegiatan = $_REQUEST['idkegiatan'];
 $kode_kegiatan = $_REQUEST['kode_kegiatan'];
 $nama_kegiatan = $_REQUEST['nama_kegiatan'];
 ?>
@@ -27,6 +28,7 @@ $nama_kegiatan = $_REQUEST['nama_kegiatan'];
 	<input type="hidden" name="idsubkegiatan" value="<?php echo htmlspecialchars($idsubkegiatan); ?>">
 	<input type="hidden" name="kode_subkegiatan" value="<?php echo htmlspecialchars($kode_subkegiatan); ?>">
 	<input type="hidden" name="nama_subkegiatan" value="<?php echo htmlspecialchars($nama_subkegiatan); ?>">
+	<input type="hidden" name="idkegiatan" value="<?php echo htmlspecialchars($idkegiatan); ?>">
 	<input type="hidden" name="kode_kegiatan" value="<?php echo htmlspecialchars($kode_kegiatan); ?>">
 	<input type="hidden" name="nama_kegiatan" value="<?php echo htmlspecialchars($nama_kegiatan); ?>">
 </form>

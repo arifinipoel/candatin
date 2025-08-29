@@ -14,9 +14,7 @@ $tglfile = date('dmY');
 $qryFrm2 = "insert into tb_kegiatan set  
 		  tahun='$_SESSION[tahun]',
 		  kode_kegiatan='$_POST[kode_kegiatan]',
-		  nama_kegiatan='$_POST[nama_kegiatan]',
-		  pj='$_POST[pj]'";
-
+		  nama_kegiatan='$_POST[nama_kegiatan]'";
 
 $resQryFrm2 = mysqli_query($koneksi, $qryFrm2);
 
